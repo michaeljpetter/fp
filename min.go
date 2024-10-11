@@ -1,0 +1,14 @@
+package fp
+
+import (
+	"github.com/michaeljpetter/fp/types"
+	"iter"
+)
+
+func Min[T types.Ordered](initial T) func(iter.Seq[T]) T {
+	return Reduce(func(r T, t T) T { return min(r, t) }, initial)
+}
+
+func MinOf[T any, U types.Ordered](project func(T) U, initial U) func(iter.Seq[T]) U {
+	return Reduce(func(r U, t T) U { return min(r, project(t)) }, initial)
+}
