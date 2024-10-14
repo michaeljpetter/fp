@@ -5,6 +5,9 @@ import (
 	"sync"
 )
 
+// Once wraps any function, ensuring it is executed only once,
+// and returning its cached results (including panics) on every call thereafter.
+// The returned function may be called concurrently.
 func Once[F any](function F) F {
 	var once sync.Once
 	var out []reflect.Value
