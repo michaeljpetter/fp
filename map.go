@@ -59,12 +59,3 @@ func Map2To2[T1, T2, U1, U2 any](project func(T1, T2) (U1, U2)) func(iter.Seq2[T
 		}
 	}
 }
-
-// IndexMap maps a unary sequence into a unary sequence,
-// pairing each element with its zero-based index in the source and
-// applying a 2-to-1 projection to each pair.
-func IndexMap[T, U any](project func(int, T) U) func(iter.Seq[T]) iter.Seq[U] {
-	return func(src iter.Seq[T]) iter.Seq[U] {
-		return Map2(project)(Index(src))
-	}
-}
