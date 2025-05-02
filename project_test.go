@@ -1,16 +1,17 @@
 package fp_test
 
 import (
-	"github.com/michaeljpetter/fp"
 	"math"
 	"strings"
 	"testing"
+
+	"github.com/michaeljpetter/fp"
 )
 
-func TestProject2(t *testing.T) {
+func TestProject2To2(t *testing.T) {
 	in1, in2 := "e", 2.18
 
-	out1, out2 := fp.Project2(strings.ToUpper, math.Floor)(in1, in2)
+	out1, out2 := fp.Project2To2(strings.ToUpper, math.Floor)(in1, in2)
 
 	exp1, exp2 := "E", 2.
 

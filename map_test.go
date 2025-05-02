@@ -1,10 +1,11 @@
 package fp_test
 
 import (
-	"github.com/michaeljpetter/fp"
 	"slices"
 	"strings"
 	"testing"
+
+	"github.com/michaeljpetter/fp"
 )
 
 func TestMap(t *testing.T) {
@@ -77,20 +78,6 @@ func TestMap2To2(t *testing.T) {
 	exp := []tuple{
 		{"A", 0}, {"Or", 1}, {"Man", 4},
 	}
-
-	if !slices.Equal(out, exp) {
-		t.Errorf("wrong elements %v, expected %v", out, exp)
-	}
-}
-
-func TestIndexMap(t *testing.T) {
-	in := []float64{3.14, 2.18, -1}
-
-	out := slices.Collect(fp.IndexMap(
-		func(i int, f float64) int { return i * int(f) },
-	)(slices.Values(in)))
-
-	exp := []int{0, 2, -2}
 
 	if !slices.Equal(out, exp) {
 		t.Errorf("wrong elements %v, expected %v", out, exp)

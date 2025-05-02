@@ -1,8 +1,9 @@
 package fp_test
 
 import (
-	"github.com/michaeljpetter/fp"
 	"testing"
+
+	"github.com/michaeljpetter/fp"
 )
 
 func TestNot(t *testing.T) {

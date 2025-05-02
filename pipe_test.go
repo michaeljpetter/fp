@@ -1,42 +1,45 @@
 package fp_test
 
 import (
-	"github.com/michaeljpetter/fp"
 	"slices"
 	"strings"
 	"testing"
+
+	. "github.com/michaeljpetter/fp"
 )
 
 func TestPipe(t *testing.T) {
-	in := "pipe   like  a       pro"
+	t.Run("Base", func(t *testing.T) {
+		in := "pipe   like  a       pro"
 
-	out := fp.Pipe[func(string) string](
-		strings.Fields,
-		slices.All[[]string],
-		fp.Map2(fp.Pipe[func(int, string) string](
-			fp.Project2(
-				fp.Pipe[func(int) int](fp.Mod(2), fp.Add(1)),
-				strings.Title,
-			),
-			fp.Flip2(strings.Repeat),
-		)),
-		slices.Collect[string],
-		fp.StringJoin("|"),
-	)(in)
+		out := Pipe[func(string) string](
+			strings.Fields,
+			slices.All[[]string],
+			Map2(Pipe[func(int, string) string](
+				Project2To2(
+					Pipe[func(int) int](Mod(2), Add(1)),
+					strings.Title,
+				),
+				Flip2(strings.Repeat),
+			)),
+			slices.Collect[string],
+			StringJoin("|"),
+		)(in)
 
-	exp := "Pipe|LikeLike|A|ProPro"
+		exp := "Pipe|LikeLike|A|ProPro"
 
-	if out != exp {
-		t.Errorf("wrong value %v, expected %v", out, exp)
-	}
-}
+		if out != exp {
+			t.Errorf("wrong value %v, expected %v", out, exp)
+		}
+	})
 
-func TestPipeEmpty(t *testing.T) {
-	in := 33
+	t.Run("Empty", func(t *testing.T) {
+		in := 33
 
-	out := fp.Pipe[func(int) int]()(in)
+		out := Pipe[func(int) int]()(in)
 
-	if out != in {
-		t.Errorf("wrong value %v, expected %v", out, in)
-	}
+		if out != in {
+			t.Errorf("wrong value %v, expected %v", out, in)
+		}
+	})
 }
